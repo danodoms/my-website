@@ -142,7 +142,7 @@
 
   <!-- 5. FOOTER -->
   <footer>
-    © 2026 Your Company · hello@example.com
+    © 2026 Your Company · hello@example.com · WC2N 5DN, <span id="footer-location"></span>
   </footer>
 
   <script type="module">
@@ -156,6 +156,13 @@
     const form = document.getElementById('contact-form');
     const status = document.getElementById('form-status');
     const submitBtn = form.querySelector('button[type="submit"]');
+
+    fetch('https://api.postcodes.io/postcodes/WC2N5DN')
+      .then((res) => res.json())
+      .then((data) => {
+        const { admin_district: town, region } = data.result;
+        document.getElementById('footer-location').textContent = `${town}, ${region}`;
+      });
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
